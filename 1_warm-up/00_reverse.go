@@ -1,8 +1,8 @@
-package main
+package warm_up
 
 import "fmt"
 
-func main() {
+func Reverse() {
 	str := "stressed"
 	rs := []rune(str)
 	for i, j := 0, len(str)-1; i < j; i, j = i+1, j-1 {
