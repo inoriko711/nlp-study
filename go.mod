@@ -1,3 +1,3 @@
-module github.com/inoriko711/nlp-study
+module github.com/inoriko711/nlp_study
 
 go 1.15

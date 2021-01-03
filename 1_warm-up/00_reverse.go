@@ -1,4 +1,4 @@
-package warm_up
+package main
 
 import "fmt"
 
