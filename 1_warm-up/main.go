@@ -1,7 +1,1 @@
-package main
-
-func main() {
-	Reverse()
-	patatokukashi()
-
-}
+package warm_up
