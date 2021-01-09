@@ -2,8 +2,7 @@ package warmup
 
 import "fmt"
 
-func Patatokukashi() {
-	str := "パタトクカシーー"
+func Patatokukashi(str string) {
 	rs := []rune(str)
 	var rs1, rs2 []rune
 	for i, r := range rs {
@@ -13,6 +12,6 @@ func Patatokukashi() {
 			rs2 = append(rs2, r)
 		}
 	}
-	fmt.Println(string(rs1))
-	fmt.Println(string(rs2))
+	fmt.Println("1.01. " + string(rs1))
+	fmt.Println("1.01. " + string(rs2))
 }
