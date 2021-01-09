@@ -1,8 +1,8 @@
-package main
+package warmup
 
 import "fmt"
 
-func patatokukashi() {
+func Patatokukashi() {
 	str := "パタトクカシーー"
 	rs := []rune(str)
 	var rs1, rs2 []rune
