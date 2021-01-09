@@ -7,4 +7,5 @@ import (
 func main() {
 	warmup.Reverse("stressed")
 	warmup.Patatokukashi("パタトクカシーー")
+	warmup.Patatokukashi2("パトカー", "タクシー")
 }
