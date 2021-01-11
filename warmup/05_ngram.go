@@ -27,4 +27,6 @@ func Ngram(sentence string) {
 			fmt.Print(" ")
 		}
 	}
+
+	fmt.Println()
 }
