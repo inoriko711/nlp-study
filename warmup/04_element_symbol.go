@@ -33,4 +33,5 @@ func ElementSymbol(sentence string) {
 	for _, word := range words {
 		fmt.Print(word + ":" + respMap[word] + " ")
 	}
+	fmt.Println()
 }
