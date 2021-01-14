@@ -20,7 +20,7 @@ func Aggregation(sentence1, sentence2 string) {
 
 	// TODO 積集合を求める
 	fmt.Print("1.06. 積集合: ")
-	// fmt.Println(union(ngram1, ngram2))
+	fmt.Println(intersection(ngram1, ngram2))
 
 	// TODO 差集合を求める
 	fmt.Print("1.06. 差集合: ")
@@ -29,10 +29,24 @@ func Aggregation(sentence1, sentence2 string) {
 	// TODO seが含まれてるかどうか調べるs
 }
 
-// func intersection(ss ...[]string) []string {
-// 	m := map[string]int{}
-// 	return nil
-// }
+func intersection(ss ...[]string) []string {
+	m := map[string]int{}
+	for _, s := range ss {
+		// 重複削除
+		s = union(s)
+		for _, v := range s {
+			m[v]++
+		}
+	}
+
+	var res []string
+	for v, i := range m {
+		if i == len(ss) {
+			res = append(res, v)
+		}
+	}
+	return res
+}
 
 func exist(strList []string, searchedWord string) bool {
 	for _, str := range strList {
