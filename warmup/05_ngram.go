@@ -19,7 +19,9 @@ func Ngram(sentence string) {
 		}
 	}
 
-	fmt.Print("\n1.05. 文字bi-gram:")
+	fmt.Println()
+
+	fmt.Print("1.05. 文字bi-gram:")
 	for i, str := range strList {
 		fmt.Print(string(str))
 		if i+1 < len(strList) {
