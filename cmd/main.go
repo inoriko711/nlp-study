@@ -12,4 +12,5 @@ func main() {
 	warmup.ElementSymbol("Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.")
 	warmup.Ngram("I am an NLPer")
 	warmup.Aggregation("paraparaparadise", "paragraph")
+	warmup.CreateSentence(12, "気温", 22.4)
 }
