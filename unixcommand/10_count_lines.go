@@ -1,0 +1,5 @@
+package unixcommand
+
+func CountLines() {
+
+}
