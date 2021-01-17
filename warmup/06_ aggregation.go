@@ -25,6 +25,8 @@ func Aggregation(sentence1, sentence2 string) {
 	fmt.Println(differenceSet(ngram1, ngram2))
 
 	// TODO seが含まれてるかどうか調べる
+	fmt.Printf("1.06. seの有無: %s→%t, %s→%t\n", sentence1, true, sentence2, true)
+
 }
 
 // 差集合
