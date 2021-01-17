@@ -18,17 +18,36 @@ func Aggregation(sentence1, sentence2 string) {
 	fmt.Print("1.06. 和集合: ")
 	fmt.Println(union(ngram1, ngram2))
 
-	// TODO 積集合を求める
 	fmt.Print("1.06. 積集合: ")
 	fmt.Println(intersection(ngram1, ngram2))
 
-	// TODO 差集合を求める
 	fmt.Print("1.06. 差集合: ")
-	// fmt.Println(union(ngram1, ngram2))
+	fmt.Println(differenceSet(ngram1, ngram2))
 
-	// TODO seが含まれてるかどうか調べるs
+	// TODO seが含まれてるかどうか調べる
 }
 
+// 差集合
+func differenceSet(ss ...[]string) []string {
+	m := map[string]int{}
+	for _, s := range ss {
+		// 重複削除
+		s = union(s)
+		for _, v := range s {
+			m[v]++
+		}
+	}
+
+	var res []string
+	for v, i := range m {
+		if i == 1 {
+			res = append(res, v)
+		}
+	}
+	return res
+}
+
+// 積集合
 func intersection(ss ...[]string) []string {
 	m := map[string]int{}
 	for _, s := range ss {
@@ -48,6 +67,7 @@ func intersection(ss ...[]string) []string {
 	return res
 }
 
+// 重複確認
 func exist(strList []string, searchedWord string) bool {
 	for _, str := range strList {
 		if str == searchedWord {
@@ -57,6 +77,7 @@ func exist(strList []string, searchedWord string) bool {
 	return false
 }
 
+// 和集合
 func union(ss ...[]string) []string {
 	var res []string
 	for _, s := range ss {
