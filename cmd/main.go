@@ -13,4 +13,5 @@ func main() {
 	warmup.Ngram("I am an NLPer")
 	warmup.Aggregation("paraparaparadise", "paragraph")
 	warmup.CreateSentence(12, "気温", 22.4)
+	warmup.Cipher("You gods, will give us. Some faults to make us men.")
 }
