@@ -25,9 +25,6 @@ func Typoglycemia(sentence string) {
 			// ss : シャッフルされる想定のrune
 			ss := r[1 : len(r)-2]
 			rand.Shuffle(len(ss), func(i, j int) { ss[i], ss[j] = ss[j], ss[i] })
-			for k, s := range ss {
-				r[k+1] = s
-			}
 		}
 	}
 
