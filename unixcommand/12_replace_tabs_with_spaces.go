@@ -36,32 +36,37 @@ func ReplaceTabsWithSpaces() {
 	// % cut -f 2-2 unixcommand/popular-names.txt
 	createFiles("col2.txt", col2Words)
 
-	out, err := exec.Command("cut", "-f", "-1", "unixcommand/popular-names.txt").Output()
+	boolCol1 := checkResult("-1", "col1.txt")
+	boolCol2 := checkResult("2-2", "col2.txt")
+
+	fmt.Printf("2.12. col1.txt is %t, col2.txt is %t\n", boolCol1, boolCol2)
+}
+
+// 出力結果とコマンド実施結果が一致していることの確認
+func checkResult(col, filename string) bool {
+	out, err := exec.Command("cut", "-f", col, filepath.Join("unixcommand", "popular-names.txt")).Output()
 	if err != nil {
 		log.Fatal(err)
-		return
+		return false
 	}
 	outList := strings.Split(string(out), "\n")
 
-	f1, err := os.Open(filepath.Join("unixcommand", "col1.txt"))
+	f, err := os.Open(filepath.Join("unixcommand", filename))
 	if err != nil {
 		log.Fatal(err)
-		return
+		return false
 	}
-	scanner = bufio.NewScanner(f1)
+	scanner := bufio.NewScanner(f)
 	i := 0
 	for scanner.Scan() {
 		if scanner.Text() != string(outList[i]) {
 			log.Fatalf("want: %s, got: %s", string(outList[i]), scanner.Text())
-			break
+			return false
 		}
 		i++
 	}
-
-	fmt.Println("2.12. check col1.txt and col2.txt")
+	return true
 }
-
-// 出力結果とコマンド実施結果が一致していることの確認
 
 // ファイル名と文字列を受け取り、一行ずつ保存するメソッド
 func createFiles(fileName string, words []string) {
