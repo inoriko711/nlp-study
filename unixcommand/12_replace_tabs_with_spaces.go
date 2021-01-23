@@ -28,6 +28,7 @@ func ReplaceTabsWithSpaces() {
 	}
 
 	// 各行の1列目だけを抜き出したファイルを作成する
+	// % cut -f -1 unixcommand/popular-names.txt
 	col1File, err := os.OpenFile(filepath.Join("unixcommand", "col1.txt"), os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		log.Fatal(err)
@@ -43,6 +44,7 @@ func ReplaceTabsWithSpaces() {
 	}
 
 	// 各行の2列目だけを抜き出したファイルを作成する
+	// % cut -f 2-2 unixcommand/popular-names.txt
 	col2File, err := os.OpenFile(filepath.Join("unixcommand", "col2.txt"), os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		log.Fatal(err)
