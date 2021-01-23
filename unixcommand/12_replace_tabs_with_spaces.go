@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
@@ -29,35 +30,52 @@ func ReplaceTabsWithSpaces() {
 
 	// 各行の1列目だけを抜き出したファイルを作成する
 	// % cut -f -1 unixcommand/popular-names.txt
-	col1File, err := os.OpenFile(filepath.Join("unixcommand", "col1.txt"), os.O_RDWR|os.O_CREATE, 0600)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	defer col1File.Close()
-	for _, word := range col1Words {
-		_, err := col1File.WriteString(word + "\n")
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
-	}
+	createFiles("col1.txt", col1Words)
 
 	// 各行の2列目だけを抜き出したファイルを作成する
 	// % cut -f 2-2 unixcommand/popular-names.txt
-	col2File, err := os.OpenFile(filepath.Join("unixcommand", "col2.txt"), os.O_RDWR|os.O_CREATE, 0600)
+	createFiles("col2.txt", col2Words)
+
+	out, err := exec.Command("cut", "-f", "-1", "unixcommand/popular-names.txt").Output()
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	defer col2File.Close()
-	for _, word := range col2Words {
-		_, err := col2File.WriteString(word + "\n")
+	outList := strings.Split(string(out), "\n")
+
+	f1, err := os.Open(filepath.Join("unixcommand", "col1.txt"))
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	scanner = bufio.NewScanner(f1)
+	i := 0
+	for scanner.Scan() {
+		if scanner.Text() != string(outList[i]) {
+			log.Fatalf("want: %s, got: %s", string(outList[i]), scanner.Text())
+			break
+		}
+		i++
+	}
+
+	fmt.Println("2.12. check col1.txt and col2.txt")
+}
+
+// 出力結果とコマンド実施結果が一致していることの確認
+
+// ファイル名と文字列を受け取り、一行ずつ保存するメソッド
+func createFiles(fileName string, words []string) {
+	colFile, err := os.OpenFile(filepath.Join("unixcommand", fileName), os.O_RDWR|os.O_CREATE, 0600)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	defer colFile.Close()
+	for _, word := range words {
+		_, err := colFile.WriteString(word + "\n")
 		if err != nil {
 			log.Fatal(err)
 			return
 		}
 	}
-
-	fmt.Println("2.12. check col1.txt and col2.txt")
 }
