@@ -19,4 +19,5 @@ func main() {
 	unixcommand.CountLines()
 	unixcommand.ReplaceTabsWithSpace()
 	unixcommand.SaveByColumn()
+	unixcommand.MergeCol1AndCol2()
 }
