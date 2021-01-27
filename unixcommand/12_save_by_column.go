@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func ReplaceTabsWithSpaces() {
+func SaveByColumn() {
 	f, err := os.Open(filepath.Join("unixcommand", "popular-names.txt"))
 	if err != nil {
 		log.Fatal(err)
