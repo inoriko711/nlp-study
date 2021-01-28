@@ -44,6 +44,12 @@ func checkMergeResult(got []string) bool {
 		return false
 	}
 	outList := strings.Split(string(out), "\n")
+	outList = revoke(outList, "")
+
+	if len(outList) != len(got) {
+		log.Printf("want len %d, got len %d \n", len(outList), len(got))
+		return false
+	}
 
 	for i, str := range got {
 		if str != outList[i] {
@@ -53,4 +59,15 @@ func checkMergeResult(got []string) bool {
 	}
 
 	return true
+}
+
+// revoke []stringから任意の文字列を削除する
+func revoke(slice []string, str string) []string {
+	var resSlice []string
+	for _, element := range slice {
+		if element != str {
+			resSlice = append(resSlice, element)
+		}
+	}
+	return resSlice
 }
