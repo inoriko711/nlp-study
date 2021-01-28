@@ -45,11 +45,6 @@ func checkMergeResult(got []string) bool {
 	}
 	outList := strings.Split(string(out), "\n")
 
-	// if len(outList) != len(got) {
-	// 	log.Printf("want len %d, got len %d\n", len(outList), len(got))
-	// 	return false
-	// }
-
 	for i, str := range got {
 		if str != outList[i] {
 			log.Printf("want %s, got %s\n", outList[i], str)
