@@ -1,5 +1,10 @@
 package unixcommand
 
+const (
+	Folder   string = "unixcommand"
+	FileName string = "popular-names.txt"
+)
+
 func Execute() {
 	CountLines()
 	ReplaceTabsWithSpace()

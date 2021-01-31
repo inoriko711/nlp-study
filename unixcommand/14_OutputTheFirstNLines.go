@@ -3,6 +3,7 @@ package unixcommand
 import (
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -10,6 +11,13 @@ import (
 
 func OutputTheFirstNLines(n int) {
 	// TODO 実装
+	// ファイルの内容を取得する
+	col1, err := os.Open(filepath.Join(Folder, "col1.txt"))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer col1.Close()
 
 	result := checkOutputTheFirstNLines(n)
 
@@ -19,7 +27,7 @@ func OutputTheFirstNLines(n int) {
 // TODO 動作確認
 func checkOutputTheFirstNLines(n int) bool {
 	//　コマンド実行
-	out, err := exec.Command("head", fmt.Sprintf("-%d", n), filepath.Join("unixcommand", "popular-names.txt")).Output()
+	out, err := exec.Command("head", fmt.Sprintf("-%d", n), filepath.Join(Folder, FileName)).Output()
 	if err != nil {
 		log.Println(err)
 		return false
