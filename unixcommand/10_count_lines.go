@@ -11,7 +11,7 @@ import (
 // % cat unixcommand/popular-names.txt | wc -l
 // 	2780
 func CountLines() {
-	f, err := os.Open(filepath.Join("unixcommand", "popular-names.txt"))
+	f, err := os.Open(filepath.Join(Folder, FileName))
 	if err != nil {
 		log.Fatal(err)
 		return

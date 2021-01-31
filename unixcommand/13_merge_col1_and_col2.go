@@ -12,14 +12,14 @@ import (
 
 func MergeCol1AndCol2() {
 	// ファイルの内容を取得する
-	col1, err := os.Open(filepath.Join("unixcommand", "col1.txt"))
+	col1, err := os.Open(filepath.Join(Folder, "col1.txt"))
 	if err != nil {
 		log.Println(err)
 		return
 	}
 	scanner1 := bufio.NewScanner(col1)
 
-	col2, err := os.Open(filepath.Join("unixcommand", "col2.txt"))
+	col2, err := os.Open(filepath.Join(Folder, "col2.txt"))
 	if err != nil {
 		log.Println(err)
 		return
@@ -38,7 +38,7 @@ func MergeCol1AndCol2() {
 
 func checkMergeResult(got []string) bool {
 	//　コマンド実行
-	out, err := exec.Command("paste", filepath.Join("unixcommand", "col1.txt"), filepath.Join("unixcommand", "col2.txt")).Output()
+	out, err := exec.Command("paste", filepath.Join(Folder, "col1.txt"), filepath.Join(Folder, "col2.txt")).Output()
 	if err != nil {
 		log.Println(err)
 		return false
