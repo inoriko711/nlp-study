@@ -17,6 +17,7 @@ func MergeCol1AndCol2() {
 		log.Println(err)
 		return
 	}
+	defer col1.Close()
 	scanner1 := bufio.NewScanner(col1)
 
 	col2, err := os.Open(filepath.Join(Folder, "col2.txt"))
@@ -24,6 +25,7 @@ func MergeCol1AndCol2() {
 		log.Println(err)
 		return
 	}
+	defer col2.Close()
 	scanner2 := bufio.NewScanner(col2)
 
 	var resList []string
