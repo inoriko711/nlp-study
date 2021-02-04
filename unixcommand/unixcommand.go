@@ -11,4 +11,5 @@ func Execute() {
 	SaveByColumn()
 	MergeCol1AndCol2()
 	OutputTheFirstNLines(5)
+	OutputTheLastNLines(3)
 }
