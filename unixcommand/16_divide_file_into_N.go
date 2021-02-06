@@ -43,6 +43,8 @@ func checkDivideFileIntoN(n int, gots [][]string) bool {
 		log.Println(err)
 		return false
 	}
+	defer os.RemoveAll(tmpFolder)
+
 	//　コマンド実行
 	_, err := exec.Command("split", "-l", fmt.Sprint(n), filepath.Join(Folder, FileName), filepath.Join(tmpFolder, fmt.Sprintf("%s-split.", FileName))).Output()
 	if err != nil {
@@ -72,6 +74,5 @@ func checkDivideFileIntoN(n int, gots [][]string) bool {
 		}
 	}
 
-	//TODO 生成されたファイルを削除する仕組みを作る
 	return true
 }
