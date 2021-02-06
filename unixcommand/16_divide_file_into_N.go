@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"reflect"
 )
 
 // https://nlp100.github.io/ja/ch02.html#16-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92n%E5%88%86%E5%89%B2%E3%81%99%E3%82%8B
@@ -44,7 +45,7 @@ func DivideFileIntoN(n int) {
 	fmt.Printf("2.16. %t\n", result)
 }
 
-func checkDivideFileIntoN(n int, got [][]string) bool {
+func checkDivideFileIntoN(n int, gots [][]string) bool {
 	// コマンド実行結果を一時的に保存するフォルダを準備する
 	tmpFolder := Folder + "/tmp"
 	if err := os.MkdirAll(tmpFolder, 0777); err != nil {
@@ -63,15 +64,23 @@ func checkDivideFileIntoN(n int, got [][]string) bool {
 	if err != nil {
 		panic(err)
 	}
-	for _, file := range files {
-		fmt.Println(file)
-	}
 
-	//TODO 結果の確認
-	for _, g := range got {
-		fmt.Println(len(g))
+	// 結果の確認
+	for i, got := range gots {
+		// ファイルを開いて中身を取得する
+		want, err := getFileElements(filepath.Join(tmpFolder, files[i].Name()))
+		if err != nil {
+			log.Println(err)
+			return false
+		}
+		want = revoke(want, "")
+		got = revoke(got, "")
+
+		if !reflect.DeepEqual(want, got) {
+			return false
+		}
 	}
 
 	//TODO 生成されたファイルを削除する仕組みを作る
-	return false
+	return true
 }
