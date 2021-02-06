@@ -3,6 +3,7 @@ package unixcommand
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -44,15 +45,29 @@ func DivideFileIntoN(n int) {
 }
 
 func checkDivideFileIntoN(n int, got [][]string) bool {
+	// コマンド実行結果を一時的に保存するフォルダを準備する
+	tmpFolder := Folder + "/tmp"
+	if err := os.MkdirAll(tmpFolder, 0777); err != nil {
+		fmt.Println(err)
+		return false
+	}
 	//　コマンド実行
-	out, err := exec.Command("split", "-l", fmt.Sprint(n), filepath.Join(Folder, FileName), filepath.Join(Folder, fmt.Sprintf("%s-split.", FileName))).Output()
+	_, err := exec.Command("split", "-l", fmt.Sprint(n), filepath.Join(Folder, FileName), filepath.Join(tmpFolder, fmt.Sprintf("%s-split.", FileName))).Output()
 	if err != nil {
 		log.Println(err)
 		return false
 	}
 
-	fmt.Println(out)
+	// splitで生成したファイル一覧を取得する
+	files, err := ioutil.ReadDir(tmpFolder)
+	if err != nil {
+		panic(err)
+	}
+	for _, file := range files {
+		fmt.Println(file)
+	}
 
+	//TODO 結果の確認
 	for _, g := range got {
 		fmt.Println(len(g))
 	}
