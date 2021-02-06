@@ -1,7 +1,6 @@
 package unixcommand
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,23 +13,15 @@ import (
 // https://nlp100.github.io/ja/ch02.html#16-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92n%E5%88%86%E5%89%B2%E3%81%99%E3%82%8B
 func DivideFileIntoN(n int) {
 	if n < 50 {
-		fmt.Println("2.16. 50以上の整数を指定してください")
+		log.Println("2.16. 50以上の整数を指定してください")
 		return
 	}
 
 	// ファイルの内容を取得する
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	fileList, err := getFileElements(filepath.Join(Folder, FileName))
 	if err != nil {
 		log.Println(err)
 		return
-	}
-	defer f.Close()
-
-	// ファイルの中身を全て取得する
-	scanner := bufio.NewScanner(f)
-	var fileList []string
-	for scanner.Scan() {
-		fileList = append(fileList, scanner.Text())
 	}
 
 	// ファイルをN行ずつに分けて保持する
@@ -49,7 +40,7 @@ func checkDivideFileIntoN(n int, gots [][]string) bool {
 	// コマンド実行結果を一時的に保存するフォルダを準備する
 	tmpFolder := Folder + "/tmp"
 	if err := os.MkdirAll(tmpFolder, 0777); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return false
 	}
 	//　コマンド実行
