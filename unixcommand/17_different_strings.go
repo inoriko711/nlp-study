@@ -12,7 +12,7 @@ func DifferentString() {
 
 }
 
-// TOOD 実装
+// TODO 実装
 func checkDifferentString() bool {
 	return false
 }
