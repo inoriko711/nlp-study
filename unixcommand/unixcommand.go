@@ -18,6 +18,7 @@ func Execute() {
 	OutputTheFirstNLines(5) // 引数の数値は任意
 	OutputTheLastNLines(3)  // 引数の数値は任意
 	DivideFileIntoN(500)    // 引数の数値は任意
+	DifferentString()
 }
 
 func getFileElements(file string) ([]string, error) {
