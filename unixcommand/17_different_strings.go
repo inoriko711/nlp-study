@@ -9,7 +9,7 @@ import (
 )
 
 // DifferentString 1列目の文字列の種類（異なる文字列の集合）を求める関数
-func DifferentString() {
+func DifferentString() []string {
 
 	// TODO goでの実装
 
@@ -17,6 +17,8 @@ func DifferentString() {
 
 	result := checkDifferentString()
 	fmt.Printf("2.17. %t\n", result)
+
+	return nil
 }
 
 // TODO 実装
