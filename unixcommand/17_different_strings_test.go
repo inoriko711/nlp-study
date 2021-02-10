@@ -28,7 +28,7 @@ func TestDifferentString(t *testing.T) {
 
 	// 結果が相違ないことの確認
 	if !reflect.DeepEqual(want, got) {
-		t.Fatalf("want %v\n got %v", want, got)
+		t.Fatalf("want %s\n got %s", want, got)
 	}
 
 }
