@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 	"reflect"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -22,9 +23,12 @@ func TestDifferentString(t *testing.T) {
 	}
 	want := strings.Split(string(out), "\n")
 
+	sort.Strings(want)
+	want = revoke(want, "")
+
 	// 結果が相違ないことの確認
 	if !reflect.DeepEqual(want, got) {
-		t.Fatalf("want %v, got %v", want, got)
+		t.Fatalf("want %v\n got %v", want, got)
 	}
 
 }

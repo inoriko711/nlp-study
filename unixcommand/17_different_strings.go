@@ -1,38 +1,41 @@
 package unixcommand
 
 import (
+	"bufio"
 	"fmt"
 	"log"
-	"os/exec"
+	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
 // DifferentString 1列目の文字列の種類（異なる文字列の集合）を求める関数
 func DifferentString() []string {
-
-	// TODO goでの実装
-
-	fmt.Println("2.17. 1列目の文字列の種類：")
-
-	result := checkDifferentString()
-	fmt.Printf("2.17. %t\n", result)
-
-	return nil
-}
-
-// TODO 実装
-func checkDifferentString() bool {
-	// % cut -f 1 unixcommand/popular-names.txt | sort | uniq
-	cmdstr := fmt.Sprintf("cut -f 1 %s | sort | uniq", filepath.Join(Folder, FileName))
-
-	out, err := exec.Command("sh", "-c", cmdstr).Output()
+	// ファイルの中身を読み込む
+	f, err := os.Open(filepath.Join(Folder, FileName))
 	if err != nil {
 		log.Fatal(err)
-		return false
+		return nil
 	}
-	outList := strings.Split(string(out), "\n")
 
-	fmt.Println(outList)
-	return false
+	// 1列目のみ取得する
+	col1Words := make(map[string]bool)
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		words := strings.Split(line, "\t")
+		if !col1Words[words[0]] {
+			col1Words[words[0]] = true
+		}
+	}
+
+	var result []string
+	for word := range col1Words {
+		result = append(result, word)
+	}
+	sort.Strings(result)
+	fmt.Printf("2.17. 1列目の文字列の種類： %s\n", result)
+
+	return result
 }
