@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"sort"
 	"strings"
 )
 
 // DifferentString 1列目の文字列の種類（異なる文字列の集合）を求める関数
-func DifferentString() []string {
+func DifferentString(file string) []string {
+
 	// ファイルの中身を読み込む
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 		return nil

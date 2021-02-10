@@ -3,6 +3,7 @@ package unixcommand
 import (
 	"bufio"
 	"os"
+	"path/filepath"
 )
 
 const (
@@ -18,7 +19,7 @@ func Execute() {
 	OutputTheFirstNLines(5) // 引数の数値は任意
 	OutputTheLastNLines(3)  // 引数の数値は任意
 	DivideFileIntoN(500)    // 引数の数値は任意
-	DifferentString()
+	DifferentString(filepath.Join(Folder, FileName))
 }
 
 func getFileElements(file string) ([]string, error) {

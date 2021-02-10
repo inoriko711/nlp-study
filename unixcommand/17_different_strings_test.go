@@ -2,7 +2,9 @@ package unixcommand
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
 	"sort"
 	"strings"
@@ -10,8 +12,13 @@ import (
 )
 
 func TestDifferentString(t *testing.T) {
+	// フォルダの取得
+	folder, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
 	// golangで準備した結果を取得
-	got := DifferentString()
+	got := DifferentString(filepath.Join(folder, FileName))
 
 	// 実際のコマンドを準備'cut -f 1 unixcommand/popular-names.txt | sort | uniq'
 	cmdstr := fmt.Sprintf("cut -f 1 %s | sort | uniq", FileName)
