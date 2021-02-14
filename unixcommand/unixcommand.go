@@ -20,6 +20,7 @@ func Execute() {
 	OutputTheLastNLines(3)  // 引数の数値は任意
 	DivideFileIntoN(500)    // 引数の数値は任意
 	DifferentString(filepath.Join(Folder, FileName))
+	SortRowsInDescendingOrder()
 }
 
 func getFileElements(file string) ([]string, error) {
