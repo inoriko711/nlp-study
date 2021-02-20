@@ -13,7 +13,7 @@ import (
 
 func OutputTheFirstNLines(n int) {
 	// ファイルの内容を取得する
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Println(err)
 		return
@@ -34,7 +34,7 @@ func OutputTheFirstNLines(n int) {
 
 func checkOutputTheFirstNLines(n int, got []string) bool {
 	//　コマンド実行
-	out, err := exec.Command("head", fmt.Sprintf("-%d", n), filepath.Join(Folder, FileName)).Output()
+	out, err := exec.Command("head", fmt.Sprintf("-%d", n), filepath.Join(UnixcommandFolder, PopularNamesFileName)).Output()
 	if err != nil {
 		log.Println(err)
 		return false

@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	Folder   string = "unixcommand"
-	FileName string = "popular-names.txt"
+	UnixcommandFolder    string = "unixcommand"
+	PopularNamesFileName string = "popular-names.txt"
 )
 
 func Execute() {
@@ -19,11 +19,16 @@ func Execute() {
 	OutputTheFirstNLines(5) // 引数の数値は任意
 	OutputTheLastNLines(3)  // 引数の数値は任意
 	DivideFileIntoN(500)    // 引数の数値は任意
-	DifferentString(filepath.Join(Folder, FileName))
+	DifferentString(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	SortRowsInDescendingOrder()
 }
 
 func getFileElements(file string) ([]string, error) {
+	// dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
 	f, err := os.Open(file)
 	if err != nil {
 		return nil, err

@@ -16,21 +16,21 @@ import (
 )
 
 // https://nlp100.github.io/ja/ch02.html#18-%E5%90%84%E8%A1%8C%E3%82%923%E3%82%B3%E3%83%A9%E3%83%A0%E7%9B%AE%E3%81%AE%E6%95%B0%E5%80%A4%E3%81%AE%E9%99%8D%E9%A0%86%E3%81%AB%E3%82%BD%E3%83%BC%E3%83%88
-func SortRowsInDescendingOrder() *[]string {
+func SortRowsInDescendingOrder() []string {
 	type rowByPeople struct {
 		People int
 		row    string
 	}
 
 	// popular-names.txtを開く
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Fatal(err)
 		return nil
 	}
 	defer f.Close()
 
-	rowByPeopleList := make([]rowByPeople, 0, 0)
+	rowByPeopleList := make([]rowByPeople, 0)
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -59,13 +59,13 @@ func SortRowsInDescendingOrder() *[]string {
 	result := checkSortRowsInDescendingOrder(resList)
 
 	fmt.Printf("2.18. %t\n", result)
-	return nil
+	return resList
 }
 
 // 答え合わせ用
 func checkSortRowsInDescendingOrder(gotRows []string) bool {
 	// % sort -n -k 3 -r unixcommand/popular-names.txt
-	out, err := exec.Command("sort", "-n", "-k", "3", "-r", filepath.Join(Folder, FileName)).Output()
+	out, err := exec.Command("sort", "-n", "-k", "3", "-r", filepath.Join(UnixcommandFolder, PopularNamesFileName)).Output()
 	if err != nil {
 		log.Println(err)
 		return false

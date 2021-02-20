@@ -13,7 +13,7 @@ import (
 
 func OutputTheLastNLines(n int) {
 	// ファイルの内容を取得する
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Println(err)
 		return
@@ -35,7 +35,7 @@ func OutputTheLastNLines(n int) {
 }
 func checkOutputTheLastNLines(n int, got []string) bool {
 	//　コマンド実行
-	out, err := exec.Command("tail", fmt.Sprintf("-%d", n), filepath.Join(Folder, FileName)).Output()
+	out, err := exec.Command("tail", fmt.Sprintf("-%d", n), filepath.Join(UnixcommandFolder, PopularNamesFileName)).Output()
 	if err != nil {
 		log.Println(err)
 		return false
