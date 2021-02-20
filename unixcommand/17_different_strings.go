@@ -18,6 +18,7 @@ func DifferentString(file string) []string {
 		log.Fatal(err)
 		return nil
 	}
+	defer f.Close()
 
 	// 1列目のみ取得する
 	col1Words := make(map[string]bool)
