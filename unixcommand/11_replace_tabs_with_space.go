@@ -12,7 +12,7 @@ import (
 
 func ReplaceTabsWithSpace() {
 	// ファイル読み込み
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -29,7 +29,7 @@ func ReplaceTabsWithSpace() {
 
 	// 答え合わせ
 	// コマンドの実行
-	out, err := exec.Command("sed", "-E", "s/\t/ /g", filepath.Join(Folder, FileName)).Output()
+	out, err := exec.Command("sed", "-E", "s/\t/ /g", filepath.Join(UnixcommandFolder, PopularNamesFileName)).Output()
 	if err != nil {
 		log.Fatal(err)
 		return

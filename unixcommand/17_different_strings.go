@@ -5,18 +5,21 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
+	"path/filepath"
+	"reflect"
 	"sort"
 	"strings"
 )
 
 // DifferentString 1列目の文字列の種類（異なる文字列の集合）を求める関数
-func DifferentString(file string) []string {
+func DifferentString() bool {
 
 	// ファイルの中身を読み込む
-	f, err := os.Open(file)
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Fatal(err)
-		return nil
+		return false
 	}
 	defer f.Close()
 
@@ -36,7 +39,39 @@ func DifferentString(file string) []string {
 		result = append(result, word)
 	}
 	sort.Strings(result)
-	fmt.Printf("2.17. 1列目の文字列の種類： %s\n", result)
 
-	return result
+	err = checkDifferentString(result)
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	// 結果の出力
+	// fmt.Println(result)
+
+	fmt.Println("2.17. ok")
+
+	return true
+}
+
+func checkDifferentString(got []string) error {
+	// 実際のコマンドを準備'cut -f 1 unixcommand/popular-names.txt | sort | uniq'
+	cmdstr := fmt.Sprintf("cut -f 1 %s | sort | uniq", filepath.Join(UnixcommandFolder, PopularNamesFileName))
+
+	// 実行結果の取得
+	out, err := exec.Command("sh", "-c", cmdstr).Output()
+	if err != nil {
+		return err
+	}
+	want := strings.Split(string(out), "\n")
+
+	sort.Strings(want)
+	want = revoke(want, "")
+
+	// 結果が相違ないことの確認
+	if !reflect.DeepEqual(want, got) {
+		return fmt.Errorf(fmt.Sprintf("want %s\n got %s", want, got))
+	}
+
+	return nil
 }

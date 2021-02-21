@@ -11,7 +11,7 @@ import (
 )
 
 func SaveByColumn() {
-	f, err := os.Open(filepath.Join(Folder, FileName))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -44,14 +44,14 @@ func SaveByColumn() {
 
 // 出力結果とコマンド実施結果が一致していることの確認
 func checkResult(col, filename string) bool {
-	out, err := exec.Command("cut", "-f", col, filepath.Join(Folder, FileName)).Output()
+	out, err := exec.Command("cut", "-f", col, filepath.Join(UnixcommandFolder, PopularNamesFileName)).Output()
 	if err != nil {
 		log.Fatal(err)
 		return false
 	}
 	outList := strings.Split(string(out), "\n")
 
-	f, err := os.Open(filepath.Join(Folder, filename))
+	f, err := os.Open(filepath.Join(UnixcommandFolder, filename))
 	if err != nil {
 		log.Fatal(err)
 		return false
@@ -70,7 +70,7 @@ func checkResult(col, filename string) bool {
 
 // ファイル名と文字列を受け取り、一行ずつ保存するメソッド
 func createFiles(filename string, words []string) {
-	colFile, err := os.OpenFile(filepath.Join(Folder, filename), os.O_RDWR|os.O_CREATE, 0600)
+	colFile, err := os.OpenFile(filepath.Join(UnixcommandFolder, filename), os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		log.Fatal(err)
 		return

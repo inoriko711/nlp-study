@@ -18,7 +18,7 @@ func DivideFileIntoN(n int) {
 	}
 
 	// ファイルの内容を取得する
-	fileList, err := getFileElements(filepath.Join(Folder, FileName))
+	fileList, err := getFileElements(filepath.Join(UnixcommandFolder, PopularNamesFileName))
 	if err != nil {
 		log.Println(err)
 		return
@@ -38,7 +38,7 @@ func DivideFileIntoN(n int) {
 
 func checkDivideFileIntoN(n int, gots [][]string) bool {
 	// コマンド実行結果を一時的に保存するフォルダを準備する
-	tmpFolder := Folder + "/tmp"
+	tmpFolder := UnixcommandFolder + "/tmp"
 	if err := os.MkdirAll(tmpFolder, 0777); err != nil {
 		log.Println(err)
 		return false
@@ -46,7 +46,7 @@ func checkDivideFileIntoN(n int, gots [][]string) bool {
 	defer os.RemoveAll(tmpFolder)
 
 	//　コマンド実行
-	_, err := exec.Command("split", "-l", fmt.Sprint(n), filepath.Join(Folder, FileName), filepath.Join(tmpFolder, fmt.Sprintf("%s-split.", FileName))).Output()
+	_, err := exec.Command("split", "-l", fmt.Sprint(n), filepath.Join(UnixcommandFolder, PopularNamesFileName), filepath.Join(tmpFolder, fmt.Sprintf("%s-split.", PopularNamesFileName))).Output()
 	if err != nil {
 		log.Println(err)
 		return false
