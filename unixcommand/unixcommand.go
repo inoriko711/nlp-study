@@ -22,14 +22,10 @@ func Execute() {
 	DivideFileIntoN(500)    // 引数の数値は任意
 	DifferentString()
 	SortRowsInDescendingOrder()
+	Frequency()
 }
 
 func getFileElements(file string) ([]string, error) {
-	// dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	f, err := os.Open(file)
 	if err != nil {
 		return nil, err
