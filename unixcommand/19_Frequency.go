@@ -73,7 +73,7 @@ func Frequency() bool {
 	// 結果の出力
 	// fmt.Println(resList)
 
-	fmt.Println("2.19 ok")
+	fmt.Println("2.19. ok")
 	return true
 }
 
