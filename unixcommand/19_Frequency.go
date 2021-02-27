@@ -14,7 +14,7 @@ import (
 func Frequency() bool {
 	// TODO 実装する
 
-	err := checkFrequency()
+	err := checkFrequency(nil)
 	if err != nil {
 		log.Println(err)
 		return false
@@ -24,9 +24,9 @@ func Frequency() bool {
 	return false
 }
 
-func checkFrequency() error {
+func checkFrequency(got []string) error {
 	// cut -f 1 popular-names.txt | sort | uniq -c | sort -nr
-	cmdstr := fmt.Sprintf("cut -f 1 %s | sort | uniq -c | sort -nr", filepath.Join(UnixcommandFolder, PopularNamesFileName))
+	cmdstr := fmt.Sprintf("cut -f 1 %s | sort | uniq -c | sed -e 's/ *\\([0-9]*\\) /\\1\t/' | sort -nr", filepath.Join(UnixcommandFolder, PopularNamesFileName))
 
 	// 実行結果の取得
 	out, err := exec.Command("sh", "-c", cmdstr).Output()
@@ -35,8 +35,9 @@ func checkFrequency() error {
 	}
 
 	want := strings.Split(string(out), "\n")
-
+	want = revoke(want, "")
 	fmt.Println(want)
+	fmt.Println(got)
 
 	// TODO 実装する
 	return errors.New("未実装")
