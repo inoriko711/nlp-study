@@ -22,6 +22,7 @@ func Execute() {
 	DivideFileIntoN(500)    // 引数の数値は任意
 	DifferentString()
 	SortRowsInDescendingOrder()
+	Frequency()
 }
 
 func getFileElements(file string) ([]string, error) {
