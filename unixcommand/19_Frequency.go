@@ -2,12 +2,12 @@ package unixcommand
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -45,12 +45,23 @@ func Frequency() bool {
 		resList = append(resList, fmt.Sprintf("%d\t%s", val, key))
 	}
 
+	resList = revoke(resList, "")
+
+	// 出現頻度の降順でソート。同一出現頻度の場合は名前順でソート
 	sort.Slice(resList, func(i, j int) bool {
-		nameFrequencyListI := strings.Split(resList[i], "\t")
-		frequencyI, _ := strconv.Atoi(nameFrequencyListI[0])
-		nameFrequencyListJ := strings.Split(resList[j], "\t")
-		frequencyJ, _ := strconv.Atoi(nameFrequencyListJ[0])
-		return frequencyI > frequencyJ
+		listI := strings.Split(resList[i], "\t")
+		frequencyI, _ := strconv.Atoi(listI[0])
+
+		listJ := strings.Split(resList[j], "\t")
+		frequencyJ, _ := strconv.Atoi(listJ[0])
+
+		if frequencyI > frequencyJ {
+			return true
+		}
+		if frequencyI < frequencyJ {
+			return false
+		}
+		return listI[1] > listJ[1]
 	})
 
 	err = checkFrequency(resList)
@@ -79,9 +90,10 @@ func checkFrequency(got []string) error {
 	want := strings.Split(string(out), "\n")
 	want = revoke(want, "")
 
-	fmt.Println(want)
-	fmt.Println(got)
+	// 結果が相違ないことの確認
+	if !reflect.DeepEqual(want, got) {
+		return fmt.Errorf(fmt.Sprintf("want %s\n got %s", want, got))
+	}
 
-	// TODO 実装する
-	return errors.New("未実装")
+	return nil
 }
