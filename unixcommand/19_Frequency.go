@@ -74,7 +74,7 @@ func Frequency() bool {
 	// fmt.Println(resList)
 
 	fmt.Println("2.19 ok")
-	return false
+	return true
 }
 
 func checkFrequency(got []string) error {
