@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/inoriko711/nlp-study/regex"
 	"github.com/inoriko711/nlp-study/unixcommand"
 	"github.com/inoriko711/nlp-study/warmup"
 )
@@ -17,4 +18,5 @@ func main() {
 	warmup.Cipher("You gods, will give us. Some faults to make us men.")
 	warmup.Typoglycemia("I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind .")
 	unixcommand.Execute()
+	regex.Execute()
 }
